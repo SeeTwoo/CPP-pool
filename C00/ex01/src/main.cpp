@@ -8,7 +8,8 @@ int	main(void) {
 	while (std::getline(std::cin, command)) {
 		if (command == "EXIT")
 			exit(0);
-		if (command == "SEARCH")
+		else if (command == "SEARCH")
 			book.search();
+		else if (command == "ADD")
 	}
 }
