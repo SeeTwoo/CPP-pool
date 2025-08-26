@@ -1,5 +1,4 @@
-#include <PhoneBook.cpp>
-#include <Contact.cpp>
+#include "PhoneBook.hpp"
 
 int	main(void) {
 	PhoneBook	book;
@@ -7,9 +6,11 @@ int	main(void) {
 
 	while (std::getline(std::cin, command)) {
 		if (command == "EXIT")
-			exit(0);
+			return (0);
 		else if (command == "SEARCH")
-			book.search();
+			book.searchContact();
 		else if (command == "ADD")
+			book.addContact();
 	}
+	return (0);
 }
