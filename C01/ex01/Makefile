@@ -1,10 +1,10 @@
-NAME = Zombie
+NAME = Fixed 
 CC = c++ -Wall -Wextra -Werror --std=c++98 -Iincludes
 CCDEBUG = $(CC) -g3
 
 SRC_DIR = src
-SRC_FILES = main.cpp \
-			Zombie.cpp
+SRC_FILES = Fixed.cpp \
+			main.cpp
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
@@ -13,14 +13,18 @@ OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(OBJ_FILES))
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	mkdir -p obj
-	$(CC) -c $< -o $@
+all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) -o $@ $^
 
-all: $(NAME)
+$(OBJ): | $(OBJ_DIR)
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CC) -c $< -o $@
 
 debug: fclean
 	$(MAKE) CC="$(CCDEBUG)" all
