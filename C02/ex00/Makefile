@@ -13,14 +13,18 @@ OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(OBJ_FILES))
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	mkdir -p obj
-	$(CC) -c $< -o $@
+all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) -o $@ $^
 
-all: $(NAME)
+$(OBJ): | $(OBJ_DIR)
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CC) -c $< -o $@
 
 debug: fclean
 	$(MAKE) CC="$(CCDEBUG)" all
