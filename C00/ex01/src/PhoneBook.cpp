@@ -1,32 +1,28 @@
 #include "PhoneBook.hpp"
 
 PhoneBook::addContact() {
-	std::cout << "adding a contact\n";
+	std::cout << "enter first name\n";
+	this->contacts[0]->_firstName = std::getline(std::cin, this->_firstName);
+	std::cout << "enter last name\n";
+	this->contacts[0]->_lastName = std::getline(std::cin, this->_lastName);
+	std::cout << "enter nick name\n";
+	this->contacts[0]->_nickName = std::getline(std::cin, this->_nickName);
+	std::cout << "enter phone number\n";
+	this->contacts[0]->_phoneNumber= std::getline(std::cin, this->_phoneNumber);
+	std::cout << "secret";
+	this->contacts[0]->_secret= std::getline(std::cin, this->_secret);
 }
 
-
-
 PhoneBook::displayPreview() {
-	for (int i = 0; i++; i <= this->currentIndex) {
-		printFieldPreview(this->contacts[i]->_firstName;);
-		std::cout << "|";
-		printFieldPreview(this->contacts[i]->_lastName;);
-		std::cout << "|";
-		printFieldPreview(this->contacts[i]->_nickName;);
-		std::cout << "|";
-		printFieldPreview(this->contacts[i]->_phoneNumber;);
-		std::cout << "|";
-		printFieldPreview(this->contacts[i]->_secret;);
-		std::cout << "|";
-	}
+	this.contacts[0].printPreview();
 }
 
 PhoneBook::searchContact() {
 	std::string	indexString;
-	int			contactIndex;
+//	int			contactIndex;
 
 	this->displayPreview();
-	std::cout << "Enter contact index > ";
+	/*std::cout << "Enter contacts index > ";
 	indexString = std::getline(std::cin, std::indexString);
 	if (!index) {
 		std::cerr << "getline failed \n";
@@ -40,6 +36,6 @@ PhoneBook::searchContact() {
 	if (contactIndex < 0 || contactIndex > 7) {
 		std::cerr << "The index must be in the 0 to 7 range\n";
 		return ;
-	}
-	this->displayContact(contactIndex);
+	}*/
+//k	this->displayContact(contactIndex);
 }

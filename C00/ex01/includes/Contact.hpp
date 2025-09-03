@@ -9,6 +9,7 @@ class Contact {
 //		~Contact();
 //		Contact(const Contact&);
 //		Contact& operator=(const Contact&);
+		void	printPreview();
 	private:
 		std::string	_firstName;
 		std::string	_lastName;
