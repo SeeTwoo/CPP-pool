@@ -1,41 +1,60 @@
 #include "PhoneBook.hpp"
+#include <cstdlib>
 
-PhoneBook::addContact() {
+void	PhoneBook::addContact() {
+	std::string	firstName;
+	std::string	lastName;
+	std::string	nickName;
+	std::string	phoneNumber;
+	std::string	secret;
+
 	std::cout << "enter first name\n";
-	this->contacts[0]->_firstName = std::getline(std::cin, this->_firstName);
+	std::getline(std::cin, firstName);
 	std::cout << "enter last name\n";
-	this->contacts[0]->_lastName = std::getline(std::cin, this->_lastName);
+	std::getline(std::cin, lastName);
 	std::cout << "enter nick name\n";
-	this->contacts[0]->_nickName = std::getline(std::cin, this->_nickName);
+	std::getline(std::cin, nickName);
 	std::cout << "enter phone number\n";
-	this->contacts[0]->_phoneNumber= std::getline(std::cin, this->_phoneNumber);
-	std::cout << "secret";
-	this->contacts[0]->_secret= std::getline(std::cin, this->_secret);
+	std::getline(std::cin, phoneNumber);
+	std::cout << "enter secret\n";
+	std::getline(std::cin, secret);
+	contacts[currentContact].setValues(
+		firstName,
+		lastName,
+		nickName,
+		phoneNumber,
+		secret
+	);
+	currentContact++;
+	if (currentContact == 8)
+		currentContact = 0;
+	if (contactNumber < 8)
+		contactNumber++;
 }
 
-PhoneBook::displayPreview() {
-	this.contacts[0].printPreview();
+void	PhoneBook::displayPreview() {
+	std::cout << " |" << "first name|" << " last name|" << " nick name|\n";
+	for (int i = 0; i < contactNumber; i++) {
+		std::cout << i << "|";
+		contacts[i].printPreview();
+	}
 }
 
-PhoneBook::searchContact() {
+void	PhoneBook::searchContact() {
 	std::string	indexString;
-//	int			contactIndex;
+	int			contactIndex;
 
 	this->displayPreview();
-	/*std::cout << "Enter contacts index > ";
-	indexString = std::getline(std::cin, std::indexString);
-	if (!index) {
-		std::cerr << "getline failed \n";
-		return ;
-	}
+	std::cout << "Enter contacts index > ";
+	std::getline(std::cin, indexString);
 	if (!std::isdigit(indexString[0])) {
 		std::cerr << "The index must only contain digits\n";
 		return ;
 	}
-	contactIndex = std::stoi(indexString);
-	if (contactIndex < 0 || contactIndex > 7) {
-		std::cerr << "The index must be in the 0 to 7 range\n";
+	contactIndex = (int)std::atoi(indexString.c_str());
+	if (contactIndex < 0 || contactIndex >= contactNumber) {
+		std::cerr << "The contact at the index must exist\n";
 		return ;
-	}*/
-//k	this->displayContact(contactIndex);
+	}
+	contacts[contactIndex].displayFullContact();
 }
