@@ -42,5 +42,5 @@ int	main(int ac, char **av) {
         }
         out << line << "\n";
     }
-	return (0);
+	return 0;
 }

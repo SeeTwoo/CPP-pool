@@ -25,6 +25,10 @@ void	PhoneBook::addContact() {
 		phoneNumber,
 		secret
 	);
+	if (firstName.empty() || lastName.empty() || nickName.empty() || phoneNumber.empty() || secret.empty()) {
+		std::cerr << "Fields shoult not be empty\n";
+		return ;
+	}
 	currentContact++;
 	if (currentContact == 8)
 		currentContact = 0;
@@ -33,9 +37,9 @@ void	PhoneBook::addContact() {
 }
 
 void	PhoneBook::displayPreview() {
-	std::cout << " |" << "first name|" << " last name|" << " nick name|\n";
+	std::cout << "     index|" << "first name|" << " last name|" << " nick name|\n";
 	for (int i = 0; i < contactNumber; i++) {
-		std::cout << i << "|";
+		std::cout << "         " << i << "|";
 		contacts[i].printPreview();
 	}
 }
