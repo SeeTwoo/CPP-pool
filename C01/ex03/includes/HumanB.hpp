@@ -1,27 +1,17 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                         :::     ::::::::   */
-/*   HumanB.hpp                                          :+:     :+:    :+:   */
-/*                                                     +:+ +:+        +:+     */
-/*   By: SeeTwoo <waltibee@gmail.com>                +#+  +:+       +#+       */
-/*                                                 +#+#+#+#+#+   +#+          */
-/*   Created:                                           #+#    #+#            */
-/*   Uptated:                                          ###   ########.fr      */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef HUMANA_HPP
-# define HUMANA_HPP
+#ifndef HUMANB_HPP
+# define HUMANB_HPP
 
 # include "Weapon.hpp"
 
-class HumanA {
+class HumanB {
 	private :
-		Weapon		weapon;
 		std::string	name;
+		Weapon		*weapon;
 	public:
+		HumanB(const std::string &name);
+		~HumanB();
 		void	attack();
-		void	setWeapon(Weapon);
+		void	setWeapon(Weapon &weapon);
 };
 
 #endif

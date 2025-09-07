@@ -1,10 +1,12 @@
-NAME = Fixed 
+NAME = UnnecessaryViolence
 CC = c++ -Wall -Wextra -Werror --std=c++98 -Iincludes
 CCDEBUG = $(CC) -g3
 
 SRC_DIR = src
-SRC_FILES = Fixed.cpp \
-			main.cpp
+SRC_FILES = HumanA.cpp \
+			HumanB.cpp \
+			main.cpp \
+			Weapon.cpp
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

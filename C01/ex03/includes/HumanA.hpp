@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                         :::     ::::::::   */
-/*   HumanA.hpp                                          :+:     :+:    :+:   */
-/*                                                     +:+ +:+        +:+     */
-/*   By: SeeTwoo <waltibee@gmail.com>                +#+  +:+       +#+       */
-/*                                                 +#+#+#+#+#+   +#+          */
-/*   Created:                                           #+#    #+#            */
-/*   Uptated:                                          ###   ########.fr      */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef HUMANA_HPP
 # define HUMANA_HPP
 
@@ -17,10 +5,12 @@
 
 class HumanA {
 	private :
-		Weapon		weapon;
 		std::string	name;
+		Weapon&		weapon;
 	public:
-		void	attack();
+		HumanA(std::string name, Weapon& weapon);
+		~HumanA();
+		void	attack() const;
 };
 
 #endif

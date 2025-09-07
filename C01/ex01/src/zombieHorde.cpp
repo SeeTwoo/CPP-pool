@@ -1,14 +1,14 @@
 #include "Zombie.hpp"
 
 Zombie	*zombieHorde(int N, std::string name) {
-	Zombie	*dest;
+	Zombie	*Horde;
 
 	if (N <= 0)
-		return (NULL);
-	dest = new Zombie[N];
-	if (!dest)
-		return (NULL);
-	for (i = 0; i < N; i++)
-		dest[i].setName(name);
-	return (dest);
+		return NULL;
+	Horde = new Zombie[N];
+	if (!Horde)
+		return NULL;
+	for (int i = 0; i < N; i++)
+		Horde[i].setName(name);
+	return Horde;
 }
