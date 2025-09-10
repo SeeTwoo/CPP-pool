@@ -41,6 +41,9 @@ class Fixed {
 		Fixed	&operator--();
 		Fixed	operator--(int);
 
+		Fixed	&Fixed::min(Fixed &a, Fixed &b);
+		Fixed	&Fixed::max(Fixed &a, Fixed &b);
+
 		~Fixed();
 		int		getRawBits(void) const;
 		void	setRawBits(int const raw);

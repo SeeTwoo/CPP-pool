@@ -108,3 +108,33 @@ Fixed	Fixed::operator--(int) {
 	this->Number--;
 	return tmp;
 }
+
+Fixed	Fixed::operator+(const Fixed &other) const {
+	return Fixed(this->toFloat() + other.toFloat());
+}
+
+Fixed	Fixed::operator-(const Fixed &other) const {
+	return Fixed(this->toFloat() - other.toFloat());
+}
+
+Fixed	Fixed::operator/(const Fixed &other) const {
+	return Fixed(this->toFloat() / other.toFloat());
+}
+
+Fixed	Fixed::operator*(const Fixed &other) const {
+	return Fixed(this->toFloat() * other.toFloat());
+}
+
+Fixed	&Fixed::min(Fixed &a, Fixed &b) {
+	if (a.toFloat() < b.toFloat())
+		return (a);
+	else
+		return (b);
+}
+
+Fixed	&Fixed::max(Fixed &a, Fixed &b) {
+	if (a.toFloat() > b.toFloat())
+		return (a);
+	else
+		return (b);
+}
