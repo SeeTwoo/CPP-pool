@@ -1,6 +1,8 @@
 #ifndef CLAPTRAP_HPP
 # define CLAPTRAP_HPP
 
+#include <string>
+
 class	ClapTrap {
 	private :
 		std::string	name;
@@ -9,7 +11,7 @@ class	ClapTrap {
 		int			attackDamage;
 	public :
 		ClapTrap();
-		ClapTrap(const Claptrap&);
+		ClapTrap(const ClapTrap&);
 		ClapTrap& operator=(const ClapTrap&);
 		~ClapTrap();
 		ClapTrap(const std::string);
