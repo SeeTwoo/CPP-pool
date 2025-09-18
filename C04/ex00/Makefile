@@ -3,8 +3,10 @@ CC = c++ -Wall -Wextra -Werror --std=c++98 -Iincludes
 CCDEBUG = $(CC) -g3
 
 SRC_DIR = src
-SRC_FILES = main.cpp \
-			Polymorphism.cpp
+SRC_FILES = Animal.cpp \
+			Cat.cpp \
+			Dog.cpp \
+			main.cpp \
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

@@ -2,7 +2,7 @@
 #include "Animal.hpp"
 
 void	makeSound() {
-
+	std::cout << "Generic ass animal sound\n";
 }
 
 Animal::Animal() {
@@ -13,8 +13,8 @@ Animal::Animal(const Animal &other) : type(other.type) {
 	std::cout << "Animal copy constructor called\n";
 }
 
-Animal	&operator=(const Animal &other) {
-	if (this == &other)
+Animal	&Animal::operator=(const Animal &other) {
+	if (this == &other
 		return *this;
 	type = other.type;
 	std::cout << "Animal equal operator called\n";
