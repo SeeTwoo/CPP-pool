@@ -14,29 +14,29 @@
 #include "Fixed.hpp"
 
 Fixed::Fixed() : Number(0) {
-	std::cout << "Default constructor called\n";
+	//std::cout << "Default constructor called\n";
 }
 
 Fixed::Fixed(const Fixed& other) : Number(other.Number) {
-	std::cout << "Copy constructor called\n";
+	//std::cout << "Copy constructor called\n";
 }
 
 Fixed::~Fixed() {
-	std::cout << "Default destructor called\n";
+	//std::cout << "Default destructor called\n";
 }
 
 Fixed::Fixed(const int param) : Number(param * (1L << BinaryPointPosition)) {
-	std::cout << "Int constructor called\n";
+	//std::cout << "Int constructor called\n";
 }
 
 Fixed::Fixed(const float param) : Number(param * (1L << BinaryPointPosition)) {
-	std::cout << "Float constructor called\n";
+	//std::cout << "Float constructor called\n";
 }
 
 Fixed&	Fixed::operator=(const Fixed& other) {
 	if (this == &other)
 		return (*this);
-	std::cout << "Copy assignment operator called\n";
+	//std::cout << "Copy assignment operator called\n";
 	this->Number = other.Number;
 	return *this;
 }
@@ -82,7 +82,7 @@ bool	Fixed::operator>(const Fixed &other) const {
 }
 
 bool	Fixed::operator<(const Fixed &other) const {
-	return this->Number > other.Number;
+	return this->Number < other.Number;
 }
 
 Fixed	&Fixed::operator++() {
@@ -126,15 +126,17 @@ Fixed	Fixed::operator*(const Fixed &other) const {
 }
 
 Fixed	&Fixed::min(Fixed &a, Fixed &b) {
-	if (a.toFloat() < b.toFloat())
-		return (a);
-	else
-		return (b);
+	return a.toFloat() < b.toFloat() ? a : b;
 }
 
 Fixed	&Fixed::max(Fixed &a, Fixed &b) {
-	if (a.toFloat() > b.toFloat())
-		return (a);
-	else
-		return (b);
+	return a.toFloat() > b.toFloat() ? a : b;
+}
+
+const Fixed	&Fixed::min(const Fixed &a, const Fixed &b) {
+	return a.toFloat() < b.toFloat() ? a : b;
+}
+
+const Fixed	&Fixed::max(const Fixed &a, const Fixed &b) {
+	return a.toFloat() > b.toFloat() ? a : b;
 }
