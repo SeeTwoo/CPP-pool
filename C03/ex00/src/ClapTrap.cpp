@@ -15,11 +15,11 @@
 #include "ClapTrap.hpp"
 
 void	ClapTrap::attack(const std::string &target) {
-	if (hitPoints == 0) {
+	if (hitPoints <= 0) {
 		std::cout << "ClapTrap " << name << " is dead\n";
 		return ;
 	}
-	if (energyPoints == 0) {
+	if (energyPoints <= 0) {
 		std::cout << "ClapTrap " << name << " has no energy left and cannot attack\n";
 		return ;
 	}
@@ -28,7 +28,7 @@ void	ClapTrap::attack(const std::string &target) {
 }
 
 void	ClapTrap::takeDamage(unsigned int amount) {
-	if (hitPoints == 0) {
+	if (hitPoints <= 0) {
 		std::cout << "ClapTrap " << name << " is dead\n";
 		return ;
 	}
@@ -37,11 +37,11 @@ void	ClapTrap::takeDamage(unsigned int amount) {
 }
 
 void	ClapTrap::beRepaired(unsigned int amount) {
-	if (hitPoints == 0) {
+	if (hitPoints <= 0) {
 		std::cout << "ClapTrap " << name << " is dead\n";
 		return ;
 	}
-	if (energyPoints == 0) {
+	if (energyPoints <= 0) {
 		std::cout << "ClapTrap " << name << " has no energy left and cannot repair\n";
 		return ;
 	}
