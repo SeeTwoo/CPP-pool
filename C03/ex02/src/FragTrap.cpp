@@ -35,9 +35,6 @@ FragTrap	&FragTrap::operator=(const FragTrap &other) {
 	if (this == &other)
 		return (*this);
 	std::cout << "FragTrap Copy assignment operator called\n";
-	this->name = other.name;
-	this->hitPoints= other.hitPoints;
-	this->energyPoints = other.energyPoints;
-	this->attackDamage = other.attackDamage;
+	ClapTrap::operator=(other);
 	return (*this);
 }
