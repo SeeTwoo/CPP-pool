@@ -47,20 +47,20 @@ void	ClapTrap::beRepaired(unsigned int amount) {
 	}
 	std::cout << "ClapTrap " << name << " repairs and regains " << amount << " point\n";
 	energyPoints--;
-	hitPoints++;
+	hitPoints += amount;
 }
 
 ClapTrap::ClapTrap() : name("Default ClapTrap"), hitPoints(10), energyPoints(10), attackDamage(0) {
-	std::cout << "default constructor called\n";
+	std::cout << "Default Claptrap constructor called\n";
 }
 
 ClapTrap::ClapTrap(const std::string name) : name(name), hitPoints(10), energyPoints(10), attackDamage(0) {
-	std::cout << "Name constructor called\n";
+	std::cout << "Name ClapTrap constructor called\n";
 }
 
 ClapTrap::ClapTrap(const ClapTrap &other) : name(other.name), hitPoints(other.hitPoints), energyPoints(other.energyPoints),
 	attackDamage(other.attackDamage) {
-	std::cout << "Copy constructor called\n";
+	std::cout << "ClapTrap Copy constructor called\n";
 }
 
 ClapTrap::~ClapTrap() {

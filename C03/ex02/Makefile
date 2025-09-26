@@ -4,6 +4,7 @@ CCDEBUG = $(CC) -g3
 
 SRC_DIR = src
 SRC_FILES = ClapTrap.cpp \
+			FragTrap.cpp \
 			ScavTrap.cpp \
 			main.cpp
 

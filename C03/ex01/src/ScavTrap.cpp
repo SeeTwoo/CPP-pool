@@ -2,11 +2,11 @@
 #include <iostream>
 
 void	ScavTrap::attack(const std::string &target) {
-	if (hitPoints == 0) {
+	if (hitPoints <= 0) {
 		std::cout << "ScavTrap " << name << " is dead\n";
 		return ;
 	}
-	if (energyPoints == 0) {
+	if (energyPoints <= 0) {
 		std::cout << "ScavTrap " << name << " has no energy left and cannot attack\n";
 		return ;
 	}
@@ -33,9 +33,6 @@ ScavTrap::ScavTrap(const std::string name) : ClapTrap(name) {
 }
 
 ScavTrap::ScavTrap(const ScavTrap &other) : ClapTrap(other) {
-	hitPoints = 100;
-	energyPoints = 50;
-	attackDamage = 20;
 	std::cout << "ScavTrap copy constructor called\n";
 }
 

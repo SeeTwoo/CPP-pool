@@ -15,11 +15,11 @@
 #include "ClapTrap.hpp"
 
 void	ClapTrap::attack(const std::string &target) {
-	if (hitPoints == 0) {
+	if (hitPoints <= 0) {
 		std::cout << "ClapTrap " << name << " is dead\n";
 		return ;
 	}
-	if (energyPoints == 0) {
+	if (energyPoints <= 0) {
 		std::cout << "ClapTrap " << name << " has no energy left and cannot attack\n";
 		return ;
 	}
@@ -28,7 +28,7 @@ void	ClapTrap::attack(const std::string &target) {
 }
 
 void	ClapTrap::takeDamage(unsigned int amount) {
-	if (hitPoints == 0) {
+	if (hitPoints <= 0) {
 		std::cout << "ClapTrap " << name << " is dead\n";
 		return ;
 	}
@@ -37,30 +37,30 @@ void	ClapTrap::takeDamage(unsigned int amount) {
 }
 
 void	ClapTrap::beRepaired(unsigned int amount) {
-	if (hitPoints == 0) {
+	if (hitPoints <= 0) {
 		std::cout << "ClapTrap " << name << " is dead\n";
 		return ;
 	}
-	if (energyPoints == 0) {
+	if (energyPoints <= 0) {
 		std::cout << "ClapTrap " << name << " has no energy left and cannot repair\n";
 		return ;
 	}
 	std::cout << "ClapTrap " << name << " repairs and regains " << amount << " point\n";
 	energyPoints--;
-	hitPoints++;
+	hitPoints += amount;
 }
 
 ClapTrap::ClapTrap() : name("Default ClapTrap"), hitPoints(10), energyPoints(10), attackDamage(0) {
-	std::cout << "default constructor called\n";
+	std::cout << "Default Claptrap constructor called\n";
 }
 
 ClapTrap::ClapTrap(const std::string name) : name(name), hitPoints(10), energyPoints(10), attackDamage(0) {
-	std::cout << "Name constructor called\n";
+	std::cout << "Name ClapTrap constructor called\n";
 }
 
 ClapTrap::ClapTrap(const ClapTrap &other) : name(other.name), hitPoints(other.hitPoints), energyPoints(other.energyPoints),
 	attackDamage(other.attackDamage) {
-	std::cout << "Copy constructor called\n";
+	std::cout << "ClapTrap Copy constructor called\n";
 }
 
 ClapTrap::~ClapTrap() {
