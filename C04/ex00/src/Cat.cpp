@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Cat.hpp"
 
-void	makeSound() {
+void	Cat::makeSound() {
 	std::cout << "Meow\n";
 }
 
@@ -9,11 +9,11 @@ Cat::Cat() {
 	std::cout << "Cat default constructor called\n";
 }
 
-Cat::Cat(const Cat &other) : type(other.type) {
+Cat::Cat(const Cat &other) : Animal(other) {
 	std::cout << "Cat copy constructor called\n";
 }
 
-Cat	&operator=(const Cat &other) {
+Cat	&Cat::operator=(const Cat &other) {
 	if (this == &other)
 		return *this;
 	type = other.type;

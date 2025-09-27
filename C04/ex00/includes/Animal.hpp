@@ -10,8 +10,8 @@ class Animal {
 		Animal();
 		Animal(const Animal &other);
 		Animal&	operator=(const Animal&);
-		~Animal();
-		void	makeSound();
+		virtual ~Animal();
+		virtual void	makeSound();
 };
 
 #endif
