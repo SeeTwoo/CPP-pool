@@ -1,12 +1,18 @@
 #include "Animal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
+#include "WrongAnimal.hpp"
+#include "WrongCat.hpp"
+#include "WrongDog.hpp"
 
 int main() {
 	std::cout << "Constructing" << std::endl;
 	const Animal* meta = new Animal();
 	const Animal* medor = new Dog();
 	const Animal* felix = new Cat();
+
+
+	const WrongCat*	wrongFelix = new WrongCat();
 	std::cout << std::endl;
 
 	std::cout << "Testing getType()" << std::endl;
@@ -22,6 +28,8 @@ int main() {
 	medor->makeSound();
 	std::cout << "meta (Animal) says: ";
 	meta->makeSound();
+	std::cout << "WrongAnimal says: ";
+	wrongFelix->makeSound();
 	std::cout << std::endl;
 
 	std::cout << "Destructing" << std::endl;

@@ -6,7 +6,10 @@ SRC_DIR = src
 SRC_FILES = Animal.cpp \
 			Cat.cpp \
 			Dog.cpp \
-			main.cpp \
+			WrongAnimal.cpp \
+			WrongCat.cpp \
+			WrongDog.cpp \
+			main.cpp
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
