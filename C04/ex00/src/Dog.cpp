@@ -1,26 +1,31 @@
-#include <iostream>
 #include "Dog.hpp"
 
-void	Dog::makeSound() {
-	std::cout << "Woof\n";
-}
-
+// Constructor sets the specific type for a Dog
 Dog::Dog() {
-	std::cout << "Dog default constructor called\n";
+	this->type = "Dog";
+	std::cout << "A Dog has been constructed." << std::endl;
 }
 
+// Copy Constructor
 Dog::Dog(const Dog &other) : Animal(other) {
-	std::cout << "Dog copy constructor called\n";
+	std::cout << "A Dog has been copy-constructed." << std::endl;
 }
 
-Dog	&Dog::operator=(const Dog &other) {
-	if (this == &other)
-		return *this;
-	type = other.type;
-	std::cout << "Dog equal operator called\n";
+// Assignment Operator
+Dog& Dog::operator=(const Dog &other) {
+	if (this != &other) {
+		this->type = other.type;
+	}
+	std::cout << "A Dog has been assigned." << std::endl;
 	return *this;
 }
 
+// Destructor
 Dog::~Dog() {
-	std::cout << "Dog default destructor called\n";
+	std::cout << "A Dog has been destructed." << std::endl;
+}
+
+// Dog's specific implementation of makeSound
+void Dog::makeSound() const {
+	std::cout << "Woof Woof!" << std::endl;
 }
