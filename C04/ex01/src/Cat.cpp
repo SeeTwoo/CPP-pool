@@ -3,6 +3,7 @@
 // Constructor sets the specific type for a Cat
 Cat::Cat() {
 	this->type = "Cat";
+	this->brain = new Brain();
 	std::cout << "A Cat has been constructed." << std::endl;
 }
 
@@ -23,6 +24,7 @@ Cat& Cat::operator=(const Cat &other) {
 // Destructor
 Cat::~Cat() {
 	std::cout << "A Cat has been destructed." << std::endl;
+	delete this->brain;
 }
 
 // Cat's specific implementation of makeSound

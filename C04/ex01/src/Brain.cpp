@@ -1,6 +1,6 @@
 #include "Brain.hpp"
 
-Brain::Brain() : type("Generic Brain") {
+Brain::Brain() {
 	std::cout << "A Brain has been constructed." << std::endl;
 }
 
@@ -10,9 +10,9 @@ Brain::Brain(const Brain &other) {
 }
 
 Brain& Brain::operator=(const Brain &other) {
-	if (this != &other) {
-		this->type = other.type;
-	}
+	if (this != &other)
+		for (int i = 0; i < 100 ; i++)
+			this->ideas[i] = other.ideas[i];
 	std::cout << "A Brain has been assigned." << std::endl;
 	return *this;
 }

@@ -4,6 +4,7 @@ CCDEBUG = $(CC) -g3
 
 SRC_DIR = src
 SRC_FILES = Animal.cpp \
+			Brain.cpp \
 			Cat.cpp \
 			Dog.cpp \
 			WrongAnimal.cpp \
