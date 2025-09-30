@@ -1,13 +1,5 @@
 #include "Brain.hpp"
 
-void	Brain::setIdea(std::string idea, int i) {
-	ideas[i] = idea;
-}
-
-std::string	Brain::getIdea(int i) {
-	return (ideas[i]);
-}
-
 Brain::Brain() {
 	std::cout << "A Brain has been constructed." << std::endl;
 }
