@@ -1,5 +1,13 @@
 #include "Dog.hpp"
 
+void	Dog::setIdea(std::string idea, int index) {
+	this->brain->setIdea(idea, index);
+}
+
+std::string	Dog::getIdea(int index) {
+	return (this->brain->getIdea(index));
+}
+
 Dog::Dog() {
 	this->type = "Dog";
 	this->brain = new Brain();

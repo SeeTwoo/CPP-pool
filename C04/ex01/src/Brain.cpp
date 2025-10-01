@@ -1,5 +1,17 @@
 #include "Brain.hpp"
 
+void	Brain::setIdea(std::string idea, int index) {
+	if (index < 0 || index > 99)
+		return ;
+	ideas[index] = idea;
+}
+
+std::string	Brain::getIdea(int index) {
+	if (index < 0 || index > 99)
+		return ("");
+	return (ideas[index]);
+}
+
 Brain::Brain() {
 	std::cout << "A Brain has been constructed." << std::endl;
 }

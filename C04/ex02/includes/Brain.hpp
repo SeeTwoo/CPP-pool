@@ -5,8 +5,11 @@
 #include <string>
 
 class Brain {
-	public :
+	private:
 		std::string	ideas[100];
+	public :
+		void		setIdea(std::string idea, int index);
+		std::string	getIdea(int index);
 
 		Brain();
 		Brain(const Brain&);

@@ -17,28 +17,28 @@ int main() {
 
 	std::cout << "--- Testing Deep Copy (Proof of independent Brains) ---" << std::endl;
 	Cat tempCat;
-	tempCat.brain->ideas[0] = "Original Cat Idea: Chase the mouse!";
+	tempCat.setIdea("Original Cat Idea: Chase the mouse!", 0);
 	Cat copyCat(tempCat);
 
-	std::cout << "Original Cat's Idea: \"" << tempCat.brain->ideas[0] << "\"" << std::endl;
-	std::cout << "Copied Cat's Idea:   \"" << copyCat.brain->ideas[0] << "\"" << std::endl;
+	std::cout << "Original Cat's Idea: \"" << tempCat.getIdea(0) << "\"" << std::endl;
+	std::cout << "Copied Cat's Idea:   \"" << copyCat.getIdea(0) << "\"" << std::endl;
 	
 	std::cout << "-> Changing the Original Cat's idea..." << std::endl;
-	tempCat.brain->ideas[0] = "New Cat Idea: Time for a nap.";
+	tempCat.setIdea("New Cat Idea: Time for a nap.", 0);
 
-	std::cout << "Original Cat's New Idea: \"" << tempCat.brain->ideas[0] << "\"" << std::endl;
-	std::cout << "Copied Cat's Idea (should be unchanged): \"" << copyCat.brain->ideas[0] << "\"" << std::endl;
+	std::cout << "Original Cat's New Idea: \"" << tempCat.getIdea(0) << "\"" << std::endl;
+	std::cout << "Copied Cat's Idea (should be unchanged): \"" << copyCat.getIdea(0) << "\"" << std::endl;
 	std::cout << std::endl;
 
 	std::cout << "--- Testing Assignment Operator Deep Copy ---" << std::endl;
 	Dog dogA;
-	dogA.brain->ideas[0] = "Dog A: Find a stick!";
+	dogA.setIdea("Dog A: Find a stick!", 0);
 	{
 		Dog dogB;
 		dogB = dogA;
 	}
 	std::cout << "Dog A should still be fine after Dog B was destructed." << std::endl;
-	std::cout << "Dog A's idea: \"" << dogA.brain->ideas[0] << "\"" << std::endl;
+	std::cout << "Dog A's idea: \"" << dogA.getIdea(0) << "\"" << std::endl;
 	std::cout << std::endl;
 
 	//deletion

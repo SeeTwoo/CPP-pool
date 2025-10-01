@@ -1,5 +1,13 @@
 #include "Cat.hpp"
 
+void	Cat::setIdea(std::string idea, int index) {
+	this->brain->setIdea(idea, index);
+}
+
+std::string	Cat::getIdea(int index) {
+	return (this->brain->getIdea(index));
+}
+
 Cat::Cat() {
 	this->type = "Cat";
 	this->brain = new Brain();
