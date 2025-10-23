@@ -35,7 +35,7 @@ class Bureacrat {
 		void		decrementGrade();
 
 		Bureaucrat();
-		Bureaucrat(int 
+		Bureaucrat(char, const std::string)
 		Bureaucrat(const Bureaucrat &);
 		Bureaucrat&	operator=(const Bureaucrat &);
 		~Bureaucrat();

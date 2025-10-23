@@ -23,7 +23,15 @@ const char *GradeTooLowException::what() const noexcept override {
 }
 
 void	Bureaucrat::incrementGrade() {
-	this->_grade
+	if (this->_grade == 1)
+		throw GradeTooHighException;
+	this->_grade--
+}
+
+void	Bureaucrat::decrementGrade() {
+	if (tihs->_grade == 150)
+		throw GradeTooLowException;
+	this->_grade++;
 }
 
 Bureaucrat::Bureaucrat() : _name("default"), _grade(150) {
@@ -31,7 +39,7 @@ Bureaucrat::Bureaucrat() : _name("default"), _grade(150) {
 }
 
 BureauCrat::Bureaucrat(char grade, const std::string name) {
-	if (grade < 0)
+	if (grade < 1)
 		throw GradeTooHighException;
 	if (grade > 150)
 		throw GradeTooLowException:
