@@ -20,15 +20,27 @@ class Bureacrat {
 		std::string const	_name;
 		char				_grade;
 	public :
-		std::string	getName();
-		char		getGrade();
+		class GradeTooHighException : public std::exception {
+			public :
+				const char* what() const noexcept override
+		};
+		class GradeTooLowException : public std::exception {
+			public :
+				const char* what() const noexcept override
+		};
+		const std::string	getName() const ;
+		char				getGrade() const ;
+
 		void		incrementGrade();
 		void		decrementGrade();
 
 		Bureaucrat();
+		Bureaucrat(int 
 		Bureaucrat(const Bureaucrat &);
 		Bureaucrat&	operator=(const Bureaucrat &);
 		~Bureaucrat();
 };
+
+std::ostream& operator<<(std::ostream &, const Bureaucrat &);
 
 #endif

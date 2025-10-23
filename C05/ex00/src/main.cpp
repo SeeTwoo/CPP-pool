@@ -18,9 +18,9 @@ int	main(int ac, char **av) {
 		return (1);
 	try {
 		if (strlen(av[1]) % 2 == 0)
-			throw ("even string len");
-	} catch (char *error) {
-		std::cerr << error;
+			throw std::runtime_error("even string len");
+	} catch (std::exception &e) {
+		std::cerr << e.what();
 	}
 	return (0);
 }
