@@ -14,37 +14,55 @@
 
 #include "Bureaucrat.hpp"
 
-const char *GradeTooHighException::what() const noexcept override {
-	return "Grade too high";
+void Bureaucrat::incrementGrade() {
+    if (_grade <= 1)
+        throw GradeTooHighException();
+    --_grade;
 }
 
-const char *GradeTooLowException::what() const noexcept override {
-	return "Grade too low";
+void Bureaucrat::decrementGrade() {
+    if (_grade >= 150)
+        throw GradeTooLowException();
+    ++_grade;
 }
 
-void	Bureaucrat::incrementGrade() {
-	if (this->_grade == 1)
-		throw GradeTooHighException;
-	this->_grade--
+Bureaucrat::Bureaucrat() : _name("default"), _grade(150) {}
+
+Bureaucrat::Bureaucrat(int grade, const std::string name) : _name(name) {
+    if (grade < 1)
+        throw GradeTooHighException();
+    if (grade > 150)
+        throw GradeTooLowException();
+    _grade = grade;
 }
 
-void	Bureaucrat::decrementGrade() {
-	if (tihs->_grade == 150)
-		throw GradeTooLowException;
-	this->_grade++;
+Bureaucrat::Bureaucrat(const Bureaucrat& other) : _name(other._name), _grade(other._grade) {}
+
+Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
+    if (this != &other)
+        _grade = other._grade;
+    return *this;
 }
 
-Bureaucrat::Bureaucrat() : _name("default"), _grade(150) {
-	std::cout << "Bureaucrat built by default constructor\n";
+Bureaucrat::~Bureaucrat() {}
+
+const std::string Bureaucrat::getName() const {
+    return _name;
 }
 
-BureauCrat::Bureaucrat(char grade, const std::string name) {
-	if (grade < 1)
-		throw GradeTooHighException;
-	if (grade > 150)
-		throw GradeTooLowException:
-	this->_grade = grade;
-	this->_name = name;
-	std::cout << "Bureaucrat built with parameter constructor\n";
+int Bureaucrat::getGrade() const {
+    return _grade;
 }
 
+const char* Bureaucrat::GradeTooHighException::what() const throw() {
+    return "Grade too high";
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const throw() {
+    return "Grade too low";
+}
+
+std::ostream& operator<<(std::ostream& os, const Bureaucrat& b) {
+    os << b.getName() << ", bureaucrat grade " << b.getGrade() << "\n";
+    return os;
+}
