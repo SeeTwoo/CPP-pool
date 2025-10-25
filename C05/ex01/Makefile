@@ -4,6 +4,7 @@ CCDEBUG = $(CC) -g3
 
 SRC_DIR = src
 SRC_FILES = Bureaucrat.cpp \
+			Form.cpp \
 			main.cpp
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))

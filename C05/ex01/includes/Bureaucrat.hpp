@@ -15,6 +15,8 @@
 
 #include <string>
 
+class Form;
+
 class Bureaucrat {
 	private :
 		std::string const	_name;
@@ -31,6 +33,7 @@ class Bureaucrat {
 		const std::string	getName() const ;
 		int					getGrade() const ;
 
+		void		signForm(Form &f);
 		void		incrementGrade();
 		void		decrementGrade();
 

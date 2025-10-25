@@ -13,6 +13,7 @@
 #include <iostream>
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int	main() {
 	{
@@ -33,6 +34,18 @@ int	main() {
 			std::cout << sam;
 			sam.decrementGrade();
 			std::cout << sam;
+		} catch (std::exception &e) {
+			std::cout << e.what();
+		}
+	}
+	{
+		try {
+			Bureaucrat	saul(50, "saul");
+			Form		a28("a28", 60, 60);
+
+			std::cout << a28 << std::endl;
+			saul.signForm(a28);
+			std::cout << a28 << std::endl;
 		} catch (std::exception &e) {
 			std::cout << e.what();
 		}

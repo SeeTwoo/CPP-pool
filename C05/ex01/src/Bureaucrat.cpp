@@ -13,6 +13,16 @@
 #include <iostream>
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
+
+void	Bureaucrat::signForm(Form &f) {
+	try {
+		f.beSigned(*this);
+		std::cout << _name << " signed " << f << std::endl;
+	} catch (const Form::GradeTooLowException& e) {
+		std::cout << _name << " couldn't sign " << f << " because " << e.what() << std::endl;
+	}
+}
 
 void Bureaucrat::incrementGrade() {
     if (_grade <= 1)
