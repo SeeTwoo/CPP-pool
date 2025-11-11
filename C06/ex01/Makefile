@@ -1,19 +1,10 @@
-<<<<<<< HEAD
-NAME = Fixed 
-=======
-NAME = convert 
->>>>>>> 2b0662fbd7a3ce73a129ea0a2790492b0722bb73
+NAME = Serializer 
 CC = c++ -Wall -Wextra -Werror --std=c++98 -Iincludes
 CCDEBUG = $(CC) -g3
 
 SRC_DIR = src
-<<<<<<< HEAD
-SRC_FILES = Fixed.cpp \
-			main.cpp
-=======
 SRC_FILES = main.cpp \
-			ScalarConverter.cpp
->>>>>>> 2b0662fbd7a3ce73a129ea0a2790492b0722bb73
+			Serializer.cpp
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

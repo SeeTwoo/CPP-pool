@@ -1,14 +1,16 @@
-#ifndef SCALARCONVERTER_HPP
-# define SCALARCONVERTER_HPP
+#ifndef SCALAR_HPP
+# define SCALAR_HPP
+
+#include <string>
 
 class ScalarConverter {
-	private:
+	private :
 		ScalarConverter();
-		ScalarConverter(const ScalarConverter&);
-	public:
-		ScalarConverter& operator=(const ScalarConverter&);
+		ScalarConverter(ScalarConverter const &);
+		ScalarConverter	&operator=(ScalarConverter const &);
 		~ScalarConverter();
-		static void	convert(std::string);
+	public :
+		static	void	convert(const std::string &);
 };
 
-#define
+#endif
