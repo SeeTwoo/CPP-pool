@@ -5,11 +5,16 @@
 #include <iostream>
 
 Intern::Intern() {}
-Intern::Intern(const Intern &other) {}
+Intern::Intern(const Intern &other) {(void)other;}
 Intern::~Intern() {}
 Intern	&Intern::operator=(const Intern &other) {
+	(void)other;
 	return *this;
 }
+
+AForm	*createShrubbery(const std::string &t) {return new ShrubberyCreationForm(t);}
+AForm	*createRobotomy(const std::string &t) {return new RobotomyRequestForm(t);}
+AForm	*createPardon(const std::string &t) {return new PresidentialPardonForm(t);}
 
 AForm	*Intern::makeForm(const std::string &formName, const std::string &target) {
 	static const std::string names[3] = {
@@ -22,7 +27,7 @@ AForm	*Intern::makeForm(const std::string &formName, const std::string &target) 
 		&createShrubbery,
 		&createRobotomy,
 		&createPardon
-	}
+	};
 
 	for (int i = 0; i < 3; i++) {
 		if (formName == names[i]) {
@@ -33,7 +38,3 @@ AForm	*Intern::makeForm(const std::string &formName, const std::string &target) 
 	std::cout << "Form name \"" << formName << "\" not recognized" << std::endl;
 	return 0;
 }
-
-AForm	*createShrubbery(const std::string &t) {return new ShrubberyCreationForm(t);}
-AForm	*createRobotomy(const std::string &t) {return new RobotomyRequestForm(t);}
-AForm	*createPardon(const std::string &t) {return new PresdentialPardonForm(t);}

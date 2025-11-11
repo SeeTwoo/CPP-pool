@@ -5,6 +5,7 @@ CCDEBUG = $(CC) -g3
 SRC_DIR = src
 SRC_FILES = AForm.cpp \
 			Bureaucrat.cpp \
+			Intern.cpp \
 			main.cpp \
 			PresidentialPardonForm.cpp \
 			RobotomyRequestForm.cpp \

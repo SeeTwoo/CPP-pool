@@ -2,27 +2,66 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
-#include <ctime>
+#include "Intern.hpp"
+#include <iostream>
 #include <cstdlib>
+#include <ctime>
 
 int main() {
-	std::srand(std::time(0));
+	std::srand(std::time(NULL));
+    try {
+        std::cout << "Testing Instantiation Failures" << std::endl;
+        Bureaucrat tooHigh("High", 0);
+    } catch (std::exception &e) {
+        std::cerr << "Caught expected exception: " << e.what() << std::endl;
+    }
+    try {
+        Bureaucrat tooLow("Low", 151);
+    } catch (std::exception &e) {
+        std::cerr << "Caught expected exception: " << e.what() << std::endl;
+    }
 
-	Bureaucrat b1("Alice", 1);
-	Bureaucrat b2("Bob", 140);
+    std::cout << "\nTesting Signing and Execution" << std::endl;
+    Bureaucrat boss("Boss", 1);
+    Bureaucrat middleManager("Middle Manager", 50);
+    Bureaucrat trainee("Trainee", 148);
 
-	ShrubberyCreationForm f1("home");
-	RobotomyRequestForm    f2("Marvin");
-	PresidentialPardonForm f3("Arthur Dent");
+    ShrubberyCreationForm shrub("Garden");
 
-	b2.signForm(f1);
-	b2.executeForm(f1);
+    trainee.signForm(shrub);
+    trainee.executeForm(shrub);
 
-	b1.signForm(f2);
-	b1.executeForm(f2);
+    middleManager.signForm(shrub);
+    trainee.executeForm(shrub);
+    middleManager.executeForm(shrub);
 
-	b1.signForm(f3);
-	b1.executeForm(f3);
+    std::cout << "\nTesting Intern" << std::endl;
+    Intern someRandomIntern;
+    AForm* rrf;
+    AForm* ppf;
+    AForm* scf;
+    AForm* unknown;
 
-	return 0;
+    rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+    ppf = someRandomIntern.makeForm("presidential pardon", "Ford");
+    scf = someRandomIntern.makeForm("shrubbery creation", "Home");
+    unknown = someRandomIntern.makeForm("invalid form", "Nowhere");
+
+    if (rrf) {
+        boss.signForm(*rrf);
+        boss.executeForm(*rrf);
+        delete rrf;
+    }
+    if (ppf) {
+        boss.signForm(*ppf);
+        boss.executeForm(*ppf);
+        delete ppf;
+    }
+    if (scf) {
+        boss.signForm(*scf);
+        boss.executeForm(*scf);
+        delete scf;
+    }
+
+    return 0;
 }

@@ -1,6 +1,8 @@
 #ifndef INTERN_HPP
 # define INTERN_HPP
 
+#include <string>
+
 class	AForm;
 
 class	Intern {
@@ -9,7 +11,7 @@ class	Intern {
 		Intern(const Intern &);
 		Intern	&operator=(const Intern &);
 		~Intern();
-		AForm	*makeForm(std::string, std::string);
+		AForm	*makeForm(const std::string &, const std::string &);
 };
 
 #endif
