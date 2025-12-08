@@ -2,16 +2,13 @@
 #include <cstdlib>
 
 BitcoinExchange::BitcoinExchange() {}
-
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &other) {*this = other;}
-
+BitcoinExchange::~BitcoinExchange() {}
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other) {
 	if (this != &other)
 		_db = other._db;
 	return (*this);
 }
-
-BitcoinExchange::~BitcoinExchange() {}
 
 bool	BitcoinExchange::loadDatabase(const std::string &filename) {
 	std::ifstream file(filename.c_str());
@@ -21,8 +18,7 @@ bool	BitcoinExchange::loadDatabase(const std::string &filename) {
 	std::string line;
 	std::getline(file, line); // skip header
 
-	while (std::getline(file, line))
-	{
+	while (std::getline(file, line)) {
 		if (line.empty())
 			continue;
 
@@ -82,14 +78,12 @@ bool	BitcoinExchange::validNumber(const std::string &s, float &out) {
 bool	BitcoinExchange::findRate(const std::string &date, float &rate) const {
 	std::map<std::string, float>::const_iterator it = _db.lower_bound(date);
 
-	if (it == _db.end())
-	{
+	if (it == _db.end()) {
 		--it;
 		rate = it->second;
 		return true;
 	}
-	if (it->first == date)
-	{
+	if (it->first == date) {
 		rate = it->second;
 		return true;
 	}
@@ -103,8 +97,7 @@ bool	BitcoinExchange::findRate(const std::string &date, float &rate) const {
 
 void	BitcoinExchange::processInput(const std::string &filename) const {
 	std::ifstream input(filename.c_str());
-	if (!input.is_open())
-	{
+	if (!input.is_open()) {
 		std::cout << "Error: could not open file." << std::endl;
 		return;
 	}
@@ -112,14 +105,12 @@ void	BitcoinExchange::processInput(const std::string &filename) const {
 	std::string line;
 	std::getline(input, line); // skip header line
 
-	while (std::getline(input, line))
-	{
+	while (std::getline(input, line)) {
 		if (line.empty())
 			continue;
 
 		size_t pos = line.find('|');
-		if (pos == std::string::npos)
-		{
+		if (pos == std::string::npos) {
 			std::cout << "Error: bad input => " << line << std::endl;
 			continue;
 		}
@@ -127,15 +118,13 @@ void	BitcoinExchange::processInput(const std::string &filename) const {
 		std::string date = trim(line.substr(0, pos));
 		std::string valueStr = trim(line.substr(pos + 1));
 
-		if (!validDate(date))
-		{
+		if (!validDate(date)) {
 			std::cout << "Error: bad input => " << line << std::endl;
 			continue;
 		}
 
 		float value = 0.0f;
-		if (!validNumber(valueStr, value))
-		{
+		if (!validNumber(valueStr, value)) {
 			if (valueStr.size() && valueStr[0] == '-')
 				std::cout << "Error: not a positive number." << std::endl;
 			else
@@ -144,8 +133,7 @@ void	BitcoinExchange::processInput(const std::string &filename) const {
 		}
 
 		float rate = 0.0f;
-		if (!findRate(date, rate))
-		{
+		if (!findRate(date, rate)) {
 			std::cout << "Error: bad input => " << line << std::endl;
 			continue;
 		}
