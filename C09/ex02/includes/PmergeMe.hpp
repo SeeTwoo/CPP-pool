@@ -1,47 +1,43 @@
 #ifndef PMERGEME_HPP
 # define PMERGEME_HPP
 
+# include <iostream>
+# include <string>
 # include <vector>
 # include <deque>
-# include <string>
+# include <algorithm>
+# include <ctime>
+# include <iomanip>
+# include <climits>
+# include <cstdlib>
 
 class PmergeMe {
-	private:
-		std::vector<int>	_vec;
-		std::deque<int>		_deq;
+    private:
+        std::vector<int>    _vec;
+        std::deque<int>     _deq;
+        double              _timeVec;
+        double              _timeDeq;
 
-		// Vector-based algorithm
-		void	mergeInsertSortVec(std::vector<int> &c);
-		void	createPairsVec(std::vector<std::pair<int,int> > &pairs, const std::vector<int> &input);
-		void	buildMainChainVec(std::vector<int> &mainChain, const std::vector<std::pair<int,int> > &pairs);
-		void	insertPendingVec(std::vector<int> &mainChain, const std::vector<std::pair<int,int> > &pairs);
+        // --- Vector Implementation ---
+        void    _mergeInsertSortVec(std::vector<int>& arr);
+        void    _insertInSortedVec(std::vector<int>& dest, int val);
+        
+        // --- Deque Implementation ---
+        void    _mergeInsertSortDeq(std::deque<int>& arr);
+        void    _insertInSortedDeq(std::deque<int>& dest, int val);
 
-		// Deque-based algorithm
-		void	mergeInsertSortDeq(std::deque<int> &c);
-		void	createPairsDeq(std::deque<std::pair<int,int> > &pairs, const std::deque<int> &input);
-		void	buildMainChainDeq(std::deque<int> &mainChain, const std::deque<std::pair<int,int> > &pairs);
-		void	insertPendingDeq(std::deque<int> &mainChain, const std::deque<std::pair<int,int> > &pairs);
+        // --- Shared Logic ---
+        // Generates the order of indices for insertion based on Jacobsthal numbers
+        std::vector<int> _generateInsertionOrder(size_t size);
 
-		// Jacobsthal utilities
-		std::vector<size_t>	makeJacobsthal(size_t n) const;
+    public:
+        PmergeMe();
+        ~PmergeMe();
+        PmergeMe(const PmergeMe& src);
+        PmergeMe& operator=(const PmergeMe& src);
 
-		// Binary insertion helpers
-		void	binaryInsertVec(std::vector<int> &c, int value);
-		void	binaryInsertDeq(std::deque<int> &c, int value);
-	public:
-		PmergeMe();
-		PmergeMe(const PmergeMe &other);
-		PmergeMe &operator=(const PmergeMe &other);
-		~PmergeMe();
-
-		void	load(int argc, char **argv);
-
-		const std::vector<int>	&getVec() const;
-		const std::deque<int>	&getDeq() const;
-
-		void	sortVec();
-		void	sortDeq();
+        // Main runner
+        void    sortAndMeasure(int argc, char **argv);
 };
 
 #endif
-

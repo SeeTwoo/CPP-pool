@@ -1,60 +1,69 @@
-#include <iostream>
-#include <iomanip>
-#include <ctime>
-#include <stdexcept>
-
 #include "PmergeMe.hpp"
+#include <iostream>
 
-static void printVec(const std::vector<int> &v) {
-	for (size_t i = 0; i < v.size(); ++i)
-		std::cout << v[i] << " ";
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <cstdlib>
+#include <ctime>
+
+char **createFakeArgv(const std::vector<std::string> &args) {
+    char **argv = new char*[args.size() + 1];
+    for (size_t i = 0; i < args.size(); ++i) {
+        argv[i] = const_cast<char*>(args[i].c_str());
+    }
+    argv[args.size()] = NULL;
+    return argv;
 }
 
 int main(int argc, char **argv) {
-	if (argc < 2) {
-		std::cerr << "Error\n";
-		return 1;
-	}
+    if (argc < 2) {
+        std::cerr << "Error" << std::endl;
+        return 1;
+    }
 
-	PmergeMe sorter;
+    PmergeMe sorter;
+    std::string mode = argv[1];
+    if (mode == "random") {
+        if (argc != 3) {
+            std::cerr << "Usage for random: ./PmergeMe random <size>" << std::endl;
+            return 1;
+        }
 
-	try {
-		sorter.load(argc, argv);
-	} catch (...) {
-		std::cerr << "Error\n";
-		return 1;
-	}
+        int size = std::atoi(argv[2]);
+        if (size <= 0) {
+            std::cerr << "Error: Size must be positive." << std::endl;
+            return 1;
+        }
 
-	std::cout << "Before: ";
-	printVec(sorter.getVec());
-	std::cout << "\n";
+        // Generate random numbers
+        std::vector<std::string> argsStore;
+        argsStore.push_back(argv[0]); // Program name
 
-	clock_t startVec = clock();
-	sorter.sortVec();
-	clock_t endVec = clock();
+        std::srand(std::time(NULL));
+        std::cout << "Generating " << size << " random numbers..." << std::endl;
 
-	std::cout << "After: ";
-	printVec(sorter.getVec());
-	std::cout << "\n";
+        for (int i = 0; i < size; ++i) {
+            std::stringstream ss;
+            ss << (std::rand() % 100000 + 1); // Random num between 1 and 100000
+            argsStore.push_back(ss.str());
+        }
 
-	double timeVec = (double)(endVec - startVec) / CLOCKS_PER_SEC * 1e6;
+        // Create fake argv to pass to PmergeMe
+        char **fakeArgv = createFakeArgv(argsStore);
 
-	clock_t startDeq = clock();
-	sorter.sortDeq();
-	clock_t endDeq = clock();
+        // Run the sorter with generated args
+        sorter.sortAndMeasure(size + 1, fakeArgv);
 
-	double timeDeq = (double)(endDeq - startDeq) / CLOCKS_PER_SEC * 1e6;
-
-	std::cout << std::fixed << std::setprecision(6);
-	std::cout << "Time to process a range of "
-			  << sorter.getVec().size()
-			  << " elements with std::vector : "
-			  << timeVec << " us\n";
-
-	std::cout << "Time to process a range of "
-			  << sorter.getVec().size()
-			  << " elements with std::deque : "
-			  << timeDeq << " us\n";
-
-	return 0;
+        delete[] fakeArgv; // Cleanup (container only, strings are in argsStore)
+    } else {
+		try {
+			sorter.sortAndMeasure(argc, argv);
+		} catch (const std::exception &e) {
+			std::cerr << "Error" << std::endl;
+			return 1;
+		}
+	} 
+    return 0;
 }
