@@ -5,6 +5,11 @@
 # include <string>
 
 class RPN {
+	private:
+		std::stack<int>	_stack;
+		bool	isOperator(char) const;
+		int		applyOperator(int, int, char) const;
+
 	public:
 		RPN();
 		RPN(const RPN &);
@@ -12,11 +17,6 @@ class RPN {
 		~RPN();
 
 		int	evaluate(const std::string &);
-
-	private:
-		std::stack<int>	_stack;
-		bool	isOperator(char) const;
-		int		applyOperator(int, int, char) const;
 };
 
 #endif

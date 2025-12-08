@@ -15,6 +15,5 @@ int main(int argc, char **argv) {
 		std::cerr << "\e[31mError : \e[0m" << e.what() << std::endl;
 		return 1;
 	}
-
 	return 0;
 }
