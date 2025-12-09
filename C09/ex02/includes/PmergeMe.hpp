@@ -18,16 +18,12 @@ class PmergeMe {
         double              _timeVec;
         double              _timeDeq;
 
-        // --- Vector Implementation ---
         void    _mergeInsertSortVec(std::vector<int>& arr);
         void    _insertInSortedVec(std::vector<int>& dest, int val);
         
-        // --- Deque Implementation ---
         void    _mergeInsertSortDeq(std::deque<int>& arr);
         void    _insertInSortedDeq(std::deque<int>& dest, int val);
 
-        // --- Shared Logic ---
-        // Generates the order of indices for insertion based on Jacobsthal numbers
         std::vector<int> _generateInsertionOrder(size_t size);
 
     public:
@@ -36,7 +32,6 @@ class PmergeMe {
         PmergeMe(const PmergeMe& src);
         PmergeMe& operator=(const PmergeMe& src);
 
-        // Main runner
         void    sortAndMeasure(int argc, char **argv);
 };
 

@@ -16,7 +16,7 @@ bool	BitcoinExchange::loadDatabase(const std::string &filename) {
 		return false;
 
 	std::string line;
-	std::getline(file, line); // skip header
+	std::getline(file, line);
 
 	while (std::getline(file, line)) {
 		if (line.empty())
@@ -43,6 +43,14 @@ std::string BitcoinExchange::trim(const std::string &s) {
 	return s.substr(start, end - start + 1);
 }
 
+bool	isThirtyOne(int month) {
+	return month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12;
+}
+
+bool	isThirty(int month) {
+	return month == 4 || month == 6 || month == 9 || month == 11;
+}
+
 bool	BitcoinExchange::validDate(const std::string &date) {
 	if (date.size() != 10)
 		return false;
@@ -57,7 +65,13 @@ bool	BitcoinExchange::validDate(const std::string &date) {
 		return false;
 	if (month < 1 || month > 12)
 		return false;
-	if (day < 1 || day > 31)
+	if (isThirtyOne(month) && (day < 1 || day > 31))
+		return false;
+	if (isThirty(month) && (day < 1 || day > 30))
+		return false;
+	if (month == 2 && (year % 4) == 0 && (day < 1 || day > 29))
+		return false;
+	if (month == 2 && year % 4 && (day < 1 || day > 28))
 		return false;
 
 	return true;

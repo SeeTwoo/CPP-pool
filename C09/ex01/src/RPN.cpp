@@ -30,8 +30,10 @@ int RPN::evaluate(const std::string &expr) {
 		if (tok.length() == 1 && isOperator(tok[0])) {
 			if (_stack.size() < 2)
 				throw std::runtime_error("not enough operands");
-			int b = _stack.top(); _stack.pop();
-			int a = _stack.top(); _stack.pop();
+			int b = _stack.top();
+			_stack.pop();
+			int a = _stack.top();
+			_stack.pop();
 			int r = applyOperator(a, b, tok[0]);
 			_stack.push(r);
 		} else if (tok.length() == 1 && tok[0] >= '0' && tok[0] <= '9') {
