@@ -194,6 +194,10 @@ void PmergeMe::sortAndMeasure(int argc, char **argv) {
             std::cerr << "Error" << std::endl;
             return;
         }
+		if (find(_vec.begin(), _vec.end(), val) != _vec.end()) {
+			std::cerr << "Error" << std::endl;
+			return;
+		}
         _vec.push_back(static_cast<int>(val));
         _deq.push_back(static_cast<int>(val));
     }
