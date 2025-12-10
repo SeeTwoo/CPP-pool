@@ -206,9 +206,8 @@ void PmergeMe::sortAndMeasure(int argc, char **argv) {
         return;
 
     std::cout << "Before: ";
-    size_t limit = (_vec.size() > 5) ? 5 : _vec.size();
-    for (size_t i = 0; i < limit; ++i) std::cout << _vec[i] << " ";
-    if (_vec.size() > 5) std::cout << "[...]";
+    for (size_t i = 0; i < _vec.size(); ++i)
+		std::cout << _vec[i] << " ";
     std::cout << std::endl;
 
     std::clock_t startVec = std::clock();
@@ -222,8 +221,8 @@ void PmergeMe::sortAndMeasure(int argc, char **argv) {
     _timeDeq = static_cast<double>(endDeq - startDeq) / CLOCKS_PER_SEC * 1000000;
 
     std::cout << "After:  ";
-    for (size_t i = 0; i < limit; ++i) std::cout << _vec[i] << " ";
-    if (_vec.size() > 5) std::cout << "[...]";
+    for (size_t i = 0; i < _vec.size(); ++i)
+		std::cout << _vec[i] << " ";
     std::cout << std::endl;
 
     std::cout << std::fixed << std::setprecision(5);
