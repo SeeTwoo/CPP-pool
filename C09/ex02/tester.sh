@@ -2,8 +2,7 @@
 
 # Usage:
 #   ./test_sort.sh ./your_program [count] [min] [max]
-# Defaults:
-#   count = 20, min = 0, max = 100
+# Note: (max - min + 1) must be >= count
 
 PROG="$1"
 COUNT="${2:-20}"
@@ -15,13 +14,25 @@ if [ -z "$PROG" ]; then
     exit 1
 fi
 
-# Generate random numbers
+RANGE=$((MAX - MIN + 1))
+if [ "$RANGE" -lt "$COUNT" ]; then
+    echo "error: range too small to avoid duplicates" >&2
+    exit 1
+fi
+
+# Generate unique random numbers
 nums=$(
-    i=0
-    while [ "$i" -lt "$COUNT" ]; do
-        echo $((RANDOM % (MAX - MIN + 1) + MIN))
-        i=$((i + 1))
-    done
+	{
+		i=0
+		while [ "$i" -lt "$COUNT" ]; do
+			echo $((RANDOM % RANGE + MIN))
+			i=$((i + 1))
+		done
+	} \
+	| sort -n \
+	| uniq \
+	| shuf \
+	| head -n "$COUNT"
 )
 
 # Run your program
@@ -34,17 +45,18 @@ before=$(printf '%s\n' "$out" \
 after=$(printf '%s\n' "$out" \
     | awk '/^After:/ { for (i = 2; i <= NF; i++) print $i }')
 
-# Reference sort (numeric)
+# Reference sort
 ref=$(printf '%s\n' "$before" | sort -n)
 
 # Compare
 if diff -u <(printf '%s\n' "$ref") <(printf '%s\n' "$after") >/dev/null
 then
-    echo -e "\e[32mOK\e[0m"
+    echo "OK"
 else
-    echo "\e[31mFAIL\e[0m"
+    echo "FAIL"
     echo "Expected:"
-    printf '%s\n' "$ref"
+  #  printf '%s\n' "$ref"
     echo "Got:"
-    printf '%s\n' "$after"
+  #  printf '%s\n' "$after"
 fi
+

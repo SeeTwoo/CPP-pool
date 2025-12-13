@@ -14,29 +14,25 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& src) {
     return *this;
 }
 
-// FIX: Adjusted logic for 0-indexed pending vector
 std::vector<int> PmergeMe::_generateInsertionOrder(size_t size) {
     std::vector<int> pattern;
-
     if (size == 0)
         return pattern;
-
-    size_t jacobsthal[] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461};
-    // Fix 1: Start last_val at 0 because pending[0] exists and needs to be processed
-    size_t last_val = 0; 
-    
-    for (size_t i = 1; i < sizeof(jacobsthal)/sizeof(size_t); ++i) {
-        // Fix 2: Offset limit by -1 because b1 is already inserted/excluded from pending
-        size_t next_limit = jacobsthal[i] - 1;
-        
+    size_t jacob_prev = 1; 
+    size_t jacob_curr = 1;
+    size_t last_val = 0;
+	
+    // Jacobsthal sequence generation: J_n = J_{n-1} + 2 * J_{n-2}
+    while (last_val < size) {
+        size_t next_jacob = jacob_curr + 2 * jacob_prev;
+        jacob_prev = jacob_curr;
+        jacob_curr = next_jacob;
+        size_t next_limit = next_jacob - 1; 
         if (next_limit > size)
             next_limit = size;
-
         for (size_t j = next_limit; j > last_val; --j)
             pattern.push_back(j - 1);
-
         last_val = next_limit;
-        if (last_val >= size) break;
     }
     return pattern;
 }
@@ -53,6 +49,7 @@ void PmergeMe::_mergeInsertSortVec(std::vector<int>& arr) {
 
     bool hasStraggler = (n % 2 != 0);
     int straggler = 0;
+
     if (hasStraggler) {
         straggler = arr.back();
         arr.pop_back();
@@ -77,8 +74,7 @@ void PmergeMe::_mergeInsertSortVec(std::vector<int>& arr) {
     std::vector<bool> usedPair(pairs.size(), false);
     
     std::vector<int> result = mainChain;
-    
-    // Insert b1 (partner of the smallest element in main chain)
+
     for (size_t i = 0; i < pairs.size(); ++i) {
         if (!usedPair[i] && pairs[i].first == result[0]) {
             result.insert(result.begin(), pairs[i].second);
@@ -87,7 +83,6 @@ void PmergeMe::_mergeInsertSortVec(std::vector<int>& arr) {
         }
     }
 
-    // Build pending list from the rest
     for (size_t k = 1; k < result.size(); ++k) {
         int winner = result[k];
         for (size_t i = 0; i < pairs.size(); ++i) {
@@ -99,12 +94,10 @@ void PmergeMe::_mergeInsertSortVec(std::vector<int>& arr) {
         }
     }
 
-    // Use corrected order generation
     std::vector<int> order = _generateInsertionOrder(pending.size());
 
     for (size_t i = 0; i < order.size(); ++i) {
         int idx = order[i];
-        // Ensure we don't access out of bounds if something goes wrong, though logic is fixed
         if (idx < (int)pending.size()) {
             int valToInsert = pending[idx];
             std::vector<int>::iterator pos = std::lower_bound(result.begin(), result.end(), valToInsert);
@@ -203,12 +196,11 @@ void PmergeMe::sortAndMeasure(int argc, char **argv) {
         long val = std::strtol(argv[i], &endptr, 10);
         
         if (*endptr != '\0' || val < 0 || val > INT_MAX) {
-            std::cerr << "Error" << std::endl;
+            std::cerr << "Error, number must be a positive int" << std::endl;
             return;
         }
-        // FIX: Added std:: namespace to find
         if (std::find(_vec.begin(), _vec.end(), val) != _vec.end()) {
-            std::cerr << "Error" << std::endl;
+            std::cerr << "Error, no duplicates are accepted" << std::endl;
             return;
         }
         _vec.push_back(static_cast<int>(val));
