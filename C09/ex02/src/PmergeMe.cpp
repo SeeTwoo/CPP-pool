@@ -1,4 +1,5 @@
 #include "PmergeMe.hpp"
+#include <iostream>
 
 PmergeMe::PmergeMe() : _timeVec(0), _timeDeq(0) {}
 PmergeMe::~PmergeMe() {}
@@ -13,17 +14,20 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& src) {
     return *this;
 }
 
+// FIX: Adjusted logic for 0-indexed pending vector
 std::vector<int> PmergeMe::_generateInsertionOrder(size_t size) {
     std::vector<int> pattern;
 
     if (size == 0)
-		return pattern;
+        return pattern;
 
     size_t jacobsthal[] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461};
-    size_t last_val = 1;
+    // Fix 1: Start last_val at 0 because pending[0] exists and needs to be processed
+    size_t last_val = 0; 
     
     for (size_t i = 1; i < sizeof(jacobsthal)/sizeof(size_t); ++i) {
-        size_t next_limit = jacobsthal[i];
+        // Fix 2: Offset limit by -1 because b1 is already inserted/excluded from pending
+        size_t next_limit = jacobsthal[i] - 1;
         
         if (next_limit > size)
             next_limit = size;
@@ -45,7 +49,7 @@ void PmergeMe::_insertInSortedVec(std::vector<int>& dest, int val) {
 void PmergeMe::_mergeInsertSortVec(std::vector<int>& arr) {
     size_t n = arr.size();
     if (n < 2)
-		return;
+        return;
 
     bool hasStraggler = (n % 2 != 0);
     int straggler = 0;
@@ -74,6 +78,7 @@ void PmergeMe::_mergeInsertSortVec(std::vector<int>& arr) {
     
     std::vector<int> result = mainChain;
     
+    // Insert b1 (partner of the smallest element in main chain)
     for (size_t i = 0; i < pairs.size(); ++i) {
         if (!usedPair[i] && pairs[i].first == result[0]) {
             result.insert(result.begin(), pairs[i].second);
@@ -82,6 +87,7 @@ void PmergeMe::_mergeInsertSortVec(std::vector<int>& arr) {
         }
     }
 
+    // Build pending list from the rest
     for (size_t k = 1; k < result.size(); ++k) {
         int winner = result[k];
         for (size_t i = 0; i < pairs.size(); ++i) {
@@ -93,13 +99,17 @@ void PmergeMe::_mergeInsertSortVec(std::vector<int>& arr) {
         }
     }
 
+    // Use corrected order generation
     std::vector<int> order = _generateInsertionOrder(pending.size());
 
     for (size_t i = 0; i < order.size(); ++i) {
         int idx = order[i];
-        int valToInsert = pending[idx];
-        std::vector<int>::iterator pos = std::lower_bound(result.begin(), result.end(), valToInsert);
-        result.insert(pos, valToInsert);
+        // Ensure we don't access out of bounds if something goes wrong, though logic is fixed
+        if (idx < (int)pending.size()) {
+            int valToInsert = pending[idx];
+            std::vector<int>::iterator pos = std::lower_bound(result.begin(), result.end(), valToInsert);
+            result.insert(pos, valToInsert);
+        }
     }
 
     if (hasStraggler) {
@@ -118,7 +128,7 @@ void PmergeMe::_insertInSortedDeq(std::deque<int>& dest, int val) {
 void PmergeMe::_mergeInsertSortDeq(std::deque<int>& arr) {
     size_t n = arr.size();
     if (n < 2)
-		return;
+        return;
 
     bool hasStraggler = (n % 2 != 0);
     int straggler = 0;
@@ -169,9 +179,11 @@ void PmergeMe::_mergeInsertSortDeq(std::deque<int>& arr) {
 
     for (size_t i = 0; i < order.size(); ++i) {
         int idx = order[i];
-        int valToInsert = pending[idx];
-        std::deque<int>::iterator pos = std::lower_bound(result.begin(), result.end(), valToInsert);
-        result.insert(pos, valToInsert);
+        if (idx < (int)pending.size()) {
+            int valToInsert = pending[idx];
+            std::deque<int>::iterator pos = std::lower_bound(result.begin(), result.end(), valToInsert);
+            result.insert(pos, valToInsert);
+        }
     }
 
     if (hasStraggler) {
@@ -194,10 +206,11 @@ void PmergeMe::sortAndMeasure(int argc, char **argv) {
             std::cerr << "Error" << std::endl;
             return;
         }
-		if (find(_vec.begin(), _vec.end(), val) != _vec.end()) {
-			std::cerr << "Error" << std::endl;
-			return;
-		}
+        // FIX: Added std:: namespace to find
+        if (std::find(_vec.begin(), _vec.end(), val) != _vec.end()) {
+            std::cerr << "Error" << std::endl;
+            return;
+        }
         _vec.push_back(static_cast<int>(val));
         _deq.push_back(static_cast<int>(val));
     }
@@ -207,7 +220,7 @@ void PmergeMe::sortAndMeasure(int argc, char **argv) {
 
     std::cout << "Before: ";
     for (size_t i = 0; i < _vec.size(); ++i)
-		std::cout << _vec[i] << " ";
+        std::cout << _vec[i] << " ";
     std::cout << std::endl;
 
     std::clock_t startVec = std::clock();
@@ -222,7 +235,7 @@ void PmergeMe::sortAndMeasure(int argc, char **argv) {
 
     std::cout << "After:  ";
     for (size_t i = 0; i < _vec.size(); ++i)
-		std::cout << _vec[i] << " ";
+        std::cout << _vec[i] << " ";
     std::cout << std::endl;
 
     std::cout << std::fixed << std::setprecision(5);
