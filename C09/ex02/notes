@@ -1,0 +1,15 @@
+
+
+
+soooooooooooooooooooo the goal of this fackin thing is sorting
+
+-we take the set
+
+we divide it into pairs in the unordered order the set was provided to us (first goes with second, third with fourth, fifth
+with sixth...)
+
+we find the largest element in each pair and put it in a main chain
+
+we sort the main chain by recursively calling the algorithm
+
+
