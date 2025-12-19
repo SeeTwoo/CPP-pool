@@ -22,18 +22,22 @@ void fillContainer(Container& c, int ac, char** av)
 int	main(int ac, char **av) {
 	std::vector<int>	vec;
 	std::deque<int>		deq;
+	unsigned long		vec_time;
+	unsigned long		deq_time;
 
 	fillContainer(vec, ac, av);
 	fillContainer(deq, ac, av);
-	PmergeMe::sort(vec);
-	PmergeMe::sort(deq);
-	if (PmergeMe::isSorted(vec.begin(), vec.end()))
-		std::cout << "vector properly sorted !\n";
-	else
-		std::cout << "\e[31mvector not sorted !\e[0m\n";
-	if (PmergeMe::isSorted(deq.begin(), deq.end()))
-		std::cout << "deque properly sorted !\n";
-	else
-		std::cout << "\e[31mdeque not sorted !\e[0m\n";
+	std::cout << "unsorted : ";
+	displayContainer(vec);
+	std::cout << "\n";
+	vec_time = PmergeMe::benchmarkSorting(PmergeMe::sort<std::vector<int> >, vec);
+	deq_time = PmergeMe::benchmarkSorting(PmergeMe::sort<std::deque<int> >, deq);
+	if (!PmergeMe::isSorted(vec.begin(), vec.end()) || !PmergeMe::isSorted(deq.begin(), deq.end()))
+		return std::cout << "\e[31m sorting failed !\e[0m\n", 1;
+	std::cout << "sorted : ";
+	displayContainer(vec);
+	std::cout << "\n";
+	std::cout << "vector was sorted in " << vec_time << "\n";
+	std::cout << "deque was sorted in " << deq_time << "\n";
 	return 0;
 }
