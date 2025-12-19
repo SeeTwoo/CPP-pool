@@ -11,16 +11,16 @@ class PmergeMe {
 		PmergeMe	&operator=(const PmergeMe &);
 		~PmergeMe();
 	public :
-		static void	sortVector(std::vector &);
-		static void	sortDeque(std::deque &);
+		static void	sortVector(std::vector<int> &);
+		static void	sortDeque(std::deque<int> &);
 
 		template <typename Iterator>
 		static bool isSorted(Iterator begin, Iterator end);
 
 		template <typename Sorter, typename Container>
 		static long benchmarkSorting(Sorter sorter, Container& container);
-}
+};
 
-# include "PMergeMe.tpp"
+# include "PmergeMe.tpp"
 
 #endif
