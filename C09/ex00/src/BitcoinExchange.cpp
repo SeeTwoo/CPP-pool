@@ -77,15 +77,35 @@ bool	BitcoinExchange::validDate(const std::string &date) {
 	return true;
 }
 
-bool	BitcoinExchange::validNumber(const std::string &s, float &out) {
+bool BitcoinExchange::validNumber(const std::string &s, float &out)
+{
+	if (s.empty())
+		return std::cout << "Error: wrong amount : " << s << "\n", false;
+	bool	seenDot = false;
+	size_t	i = 0;
+
+	if (s[i] == '-')
+		i++;
+	for (; i < s.size(); ++i)
+	{
+		if (s[i] == '.') {
+			if (seenDot || i == 0 || i == s.size() - 1)
+				return std::cout << "Error: wrong amount: " << s << "\n", false;
+			seenDot = true;
+		} else if (!std::isdigit(s[i])) {
+			return std::cout << "Error: wrong amount : " << s << "\n", false;
+		}
+	}
 	std::stringstream ss(s);
 	ss >> out;
-	if (ss.fail() || !ss.eof())
+
+	if (ss.fail())
 		return false;
 	if (out < 0)
-		return false;
+		return std::cout << "Error: not a positive number." << "\n", false;
 	if (out > 1000)
-		return false;
+		return std::cout << "Error: too large a number." << "\n", false;
+
 	return true;
 }
 
@@ -117,7 +137,7 @@ void	BitcoinExchange::processInput(const std::string &filename) const {
 	}
 
 	std::string line;
-	std::getline(input, line); // skip header line
+	std::getline(input, line);
 
 	while (std::getline(input, line)) {
 		if (line.empty())
@@ -138,14 +158,8 @@ void	BitcoinExchange::processInput(const std::string &filename) const {
 		}
 
 		float value = 0.0f;
-		if (!validNumber(valueStr, value)) {
-			if (valueStr.size() && valueStr[0] == '-')
-				std::cout << "Error: not a positive number." << std::endl;
-			else
-				std::cout << "Error: too large a number." << std::endl;
+		if (!validNumber(valueStr, value))
 			continue;
-		}
-
 		float rate = 0.0f;
 		if (!findRate(date, rate)) {
 			std::cout << "Error: bad input => " << line << std::endl;
