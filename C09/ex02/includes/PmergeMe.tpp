@@ -1,11 +1,18 @@
-#include <ctime>
-#include <vector>
-#include <deque>
-#include <utility>
-#include <cstddef>
-#include <iostream>
 
 #include "PmergeMe.hpp"
+
+template <typename Container>
+void	fillContainer(Container& c, int ac, char** av)
+{
+    for (int i = 1; i < ac; ++i) {
+        char* end = NULL;
+        long value = std::strtol(av[i], &end, 10);
+
+        if (*end != '\0' || value < 0)
+            throw std::exception();
+        c.push_back(static_cast<typename Container::value_type>(value));
+    }
+}
 
 template <typename Container>
 void	displayContainer(Container c)

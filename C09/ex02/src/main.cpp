@@ -1,21 +1,4 @@
 #include "PmergeMe.hpp"
-#include <iostream>
-
-#include <cstdlib>
-#include <stdexcept>
-
-template <typename Container>
-void fillContainer(Container& c, int ac, char** av)
-{
-    for (int i = 1; i < ac; ++i) {
-        char* end = NULL;
-        long value = std::strtol(av[i], &end, 10);
-
-        if (*end != '\0' || value < 0)
-            throw std::exception();
-        c.push_back(static_cast<typename Container::value_type>(value));
-    }
-}
 
 int	main(int ac, char **av) {
 	std::vector<int>	vec;

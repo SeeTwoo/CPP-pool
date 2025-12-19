@@ -1,8 +1,14 @@
 #ifndef PMERGEME_HPP
 # define PMERGEME_HPP
 
-# include <vector>
+# include <cstddef>
+# include <cstdlib>
+# include <ctime>
 # include <deque>
+# include <iostream>
+# include <stdexcept>
+# include <utility>
+# include <vector>
 
 std::vector<std::size_t>	computeJacobsthal(std::size_t n);
 std::vector<int>			makePending(const std::vector<std::pair<int, int> >& pairs);
