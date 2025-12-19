@@ -11,8 +11,8 @@ class PmergeMe {
 		PmergeMe	&operator=(const PmergeMe &);
 		~PmergeMe();
 	public :
-		static void	sortVector(std::vector<int> &);
-		static void	sortDeque(std::deque<int> &);
+		template <typename Container>
+		static void	sort(Container &);
 
 		template <typename Iterator>
 		static bool isSorted(Iterator begin, Iterator end);

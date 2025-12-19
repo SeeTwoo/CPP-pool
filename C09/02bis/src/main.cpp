@@ -21,12 +21,19 @@ void fillContainer(Container& c, int ac, char** av)
 
 int	main(int ac, char **av) {
 	std::vector<int>	vec;
+	std::deque<int>		deq;
 
 	fillContainer(vec, ac, av);
-	PmergeMe::sortVector(vec);
+	fillContainer(deq, ac, av);
+	PmergeMe::sort(vec);
+	PmergeMe::sort(deq);
 	if (PmergeMe::isSorted(vec.begin(), vec.end()))
-		std::cout << "properly sorted !\n";
+		std::cout << "vector properly sorted !\n";
 	else
-		std::cout << "not sorted !\n";
+		std::cout << "\e[31mvector not sorted !\e[0m\n";
+	if (PmergeMe::isSorted(deq.begin(), deq.end()))
+		std::cout << "deque properly sorted !\n";
+	else
+		std::cout << "\e[31mdeque not sorted !\e[0m\n";
 	return 0;
 }
