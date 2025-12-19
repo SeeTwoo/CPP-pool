@@ -7,14 +7,12 @@
 template <typename Container>
 void fillContainer(Container& c, int ac, char** av)
 {
-    for (int i = 1; i < ac; ++i)
-    {
+    for (int i = 1; i < ac; ++i) {
         char* end = NULL;
         long value = std::strtol(av[i], &end, 10);
 
-        if (*end != '\0')
-            throw std::invalid_argument("Non-numeric argument");
-
+        if (*end != '\0' || value < 0)
+            throw std::exception();
         c.push_back(static_cast<typename Container::value_type>(value));
     }
 }
@@ -25,8 +23,13 @@ int	main(int ac, char **av) {
 	unsigned long		vec_time;
 	unsigned long		deq_time;
 
-	fillContainer(vec, ac, av);
-	fillContainer(deq, ac, av);
+	try {
+		fillContainer(vec, ac, av);
+		fillContainer(deq, ac, av);
+	} catch (std::exception &e) {
+		std::cerr << "Error\n";
+		return 1;
+	}
 	std::cout << "unsorted : ";
 	displayContainer(vec);
 	std::cout << "\n";
