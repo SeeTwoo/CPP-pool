@@ -1,4 +1,3 @@
-
 #include "PmergeMe.hpp"
 
 template <typename Container>
@@ -96,19 +95,16 @@ template <typename Container>
 void	insertPending(Container& mainChain, const std::vector<int>& pending)
 {
     std::vector<std::size_t> jacob = computeJacobsthal(pending.size());
-
     std::size_t inserted = 0;
 
     for (std::size_t k = 2; k < jacob.size(); ++k) {
         std::size_t limit = jacob[k];
+        
         if (limit > pending.size())
             limit = pending.size();
-
-        for (std::size_t i = limit; i > inserted; --i)
-        {
+        for (std::size_t i = limit; i > inserted; --i) {
             int value = pending[i - 1];
-            std::size_t pos =
-                binarySearch(mainChain, value, 0, mainChain.size());
+            std::size_t pos = binarySearch(mainChain, value, 0, mainChain.size());
             mainChain.insert(mainChain.begin() + pos, value);
         }
         inserted = limit;
